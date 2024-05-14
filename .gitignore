@@ -73,7 +73,7 @@ docs/_build/
 
 # PyBuilder
 .pybuilder/
-client/
+api/client/
 
 # Jupyter Notebook
 .ipynb_checkpoints
