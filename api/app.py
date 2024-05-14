@@ -1,8 +1,8 @@
 # app.py
 import json
 
-from flask import Flask, request, jsonify
 from cryptography.fernet import Fernet
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -16,9 +16,9 @@ def get_key():
     }
     with open("db.json") as db:
         file = json.load(db)
-    file.upda
+    file.update(data)
     with open("db.json", 'a+') as db:
-        json.dump(data, db)
+        json.dump(file, db)
 
     return key
 

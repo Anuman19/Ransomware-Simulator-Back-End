@@ -8,8 +8,8 @@ def key_load():
     user = gt.getuser()
     response = requests.get("http://127.0.0.1:5000/key",
                             params={"user": user})
-    print(response)
-    return response
+    print(response.content)
+    return response.content
 
 
 def file_encrypt(key, original_file):
@@ -32,3 +32,5 @@ def file_decrypt(key, encrypted_file):
         file.seek(0)
         file.write(decrypted)
         file.truncate()
+
+
