@@ -16,9 +16,13 @@ def get_key():
     }
     with open("db.json") as db:
         file = json.load(db)
-    file.update(data)
-    with open("db.json", 'a+') as db:
+
+    file[user] = str(key)
+
+    with open("db.json", 'w') as db:
+        #db.seek(0)
         json.dump(file, db)
+        #db.truncate()
 
     return key
 

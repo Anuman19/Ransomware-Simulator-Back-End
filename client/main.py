@@ -1,3 +1,10 @@
+import os
+
 import encryptor as e
 
-e.key_load()
+
+
+
+
+target_file = create_file("demoFile")
+e.file_encrypt(target_file)
