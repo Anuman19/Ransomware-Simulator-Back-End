@@ -4,16 +4,20 @@ import requests
 from cryptography.fernet import Fernet
 
 
-def __key_load():
+def __key_load(new: bool):
     user = gt.getuser()
-    response = requests.get("http://127.0.0.1:5000/key",
-                            params={"user": user})
-    print(response.content)
+    if new:
+        response = requests.get("http://127.0.0.1:5000/key",
+                                params={"user": user})
+    else:
+        response = requests.get(f"http://127.0.0.1:5000/key/{user}")
+    # print(response.content)
     return response.content
 
 
 def file_encrypt(original_file):
-    key = __key_load()
+    key = __key_load(True)
+    print(key)
     f = Fernet(key)
 
     with open(original_file, 'rb+') as file:
@@ -26,7 +30,8 @@ def file_encrypt(original_file):
 
 
 def file_decrypt(encrypted_file):
-    key = __key_load()
+    key = __key_load(False)
+    print(key)
     f = Fernet(key)
 
     with open(encrypted_file, 'rb+') as file:
