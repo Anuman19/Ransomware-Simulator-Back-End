@@ -6,8 +6,7 @@ from flask import Flask, request
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app)
 
 
 @app.get("/key")
@@ -41,7 +40,7 @@ def get_keys():
 
 
 @app.route('/creds', methods=['POST', 'GET'])
-@cross_origin()
+@cross_origin(allow_headers=['Content-Type'])
 def cred():
     if request.method == 'POST':
         username = request.json['username']
