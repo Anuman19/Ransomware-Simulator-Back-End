@@ -135,6 +135,38 @@ def cred():
         except Exception as e:
             return jsonify({"error": str(e)}), 500
 
+@app.route('/cred/<username>', methods=['GET'])
+def get_cred(username):
+    """
+    Retrieves the password associated with the given username from creds.json.
+    ---
+    parameters:
+      - name: username
+        in: path
+        description: The username whose password needs to be retrieved
+        required: true
+        schema:
+          type: string
+    responses:
+        200:
+            description: A successful response
+            examples:
+                application/json: {"username": "password"}
+        404:
+            description: User not found
+            examples:
+                application/json: {"error": "User not found"}
+    """
+    try:
+        with open("creds.json") as db:
+            data = json.load(db)
+        password = data.get(username)
+        if password:
+            return jsonify({username: password})
+        else:
+            return jsonify({"error": "User not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     # Run the app in debug mode on port 5000
